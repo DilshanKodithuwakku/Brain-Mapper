@@ -1,0 +1,13 @@
+seed: 42
+
+data:
+  dataset: assistments
+
+training:
+  batch_size: 64
+  learning_rate: 0.001
+  epochs: 50
+
+model:
+  name: cognitive_kt
+  hidden_size: 128

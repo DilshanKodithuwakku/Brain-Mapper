@@ -1,0 +1,13 @@
+taxonomy_version: "1.0"
+score_scale:
+  0: not_required
+  1: low
+  2: moderate
+  3: high
+skills:
+  - attention
+  - working_memory
+  - logical_reasoning
+  - language_processing
+  - critical_thinking
+  - metacognition

@@ -1,0 +1,76 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyd
+*.so
+.Python
+.venv/
+venv/
+env/
+build/
+dist/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Notebooks
+.ipynb_checkpoints/
+
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+
+# DVC local state and credentials
+.dvc/cache/
+.dvc/tmp/
+.dvc/config.local
+
+# Private and generated data (track large files with DVC)
+/data/raw/**
+/data/interim/**
+/data/processed/**
+/data/annotations/**
+!/data/raw/README.md
+!/data/interim/README.md
+!/data/processed/README.md
+!/data/annotations/README.md
+
+# Generated artifacts
+/artifacts/models/**
+/artifacts/metrics/**
+/artifacts/figures/**
+!/artifacts/README.md
+
+# Experiment tracking
+mlruns/
+wandb/
+
+# Local databases and logs
+*.db
+*.sqlite
+*.sqlite3
+*.log
+logs/
+
+# Frontend
+node_modules/
+.vite/
+coverage/
+
+# IDE and operating system
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+*.bak
