@@ -105,7 +105,7 @@ python -m pip install -e ".[dev]"
 
 - Replace student identities with generated identifiers before research processing.
 - Keep the re-identification key at the participating school, outside this repository.
-- Commit only small, anonymized sample data to Git.
+- Commit only small, anonymised sample data to Git.
 - Track approved large datasets with DVC and confirm their licenses permit storage and use.
 - Use LLMs for question analysis, not automated educational decisions.
 - Record the LLM, prompt version, taxonomy version, and expert-review status for every annotation batch.
