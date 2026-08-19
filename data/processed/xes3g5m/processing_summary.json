@@ -1,0 +1,63 @@
+{
+  "dataset": "XES3G5M with ExRec English questions",
+  "created_at_utc": "2026-08-19T08:04:13.578680+00:00",
+  "official_root": "D:\\Brain Mapper\\data\\raw\\xes3g5m",
+  "english_questions_source": "D:\\Brain Mapper\\data\\raw\\xes3g5m\\metadata\\questions_translated.json",
+  "outputs": {
+    "questions": "D:\\Brain Mapper\\data\\processed\\xes3g5m\\questions.csv",
+    "question_reference": "D:\\Brain Mapper\\data\\processed\\xes3g5m\\question_reference.csv",
+    "cognitive_annotation_input_text_only": "D:\\Brain Mapper\\data\\processed\\xes3g5m\\cognitive_annotation_input_text_only.jsonl",
+    "interactions": "D:\\Brain Mapper\\data\\processed\\xes3g5m\\interactions.csv"
+  },
+  "excluded_source": "D:\\Brain Mapper\\data\\raw\\xes3g5m\\question_level\\test_window_sequences_quelevel.csv",
+  "excluded_source_reason": "Overlapping evaluation windows repeat student history and would duplicate interactions in a canonical event table.",
+  "question_summary": {
+    "questions": 7652,
+    "text_only_questions": 5438,
+    "image_dependent_questions": 2214,
+    "question_type_counts": {
+      "fill_blank": 6142,
+      "single_choice": 1510
+    },
+    "available_image_files": 2459,
+    "missing_referenced_images": 0,
+    "missing_image_refs": []
+  },
+  "interaction_summary": {
+    "interactions": 5549184,
+    "split_interactions": {
+      "train_valid": 4446374,
+      "test": 1102810
+    },
+    "unique_students": 18066,
+    "split_unique_students": {
+      "train_valid": 14453,
+      "test": 3613
+    },
+    "train_test_student_overlap": 0,
+    "unique_questions_in_interactions": 7651,
+    "questions_without_interactions": 1,
+    "question_ids_without_interactions": [
+      6232
+    ],
+    "correct_rate": 0.7947200885751851,
+    "image_dependent_interactions": 1595182,
+    "text_only_interactions": 3954002,
+    "fold_interactions": {
+      "train_valid:0": 891277,
+      "train_valid:1": 887363,
+      "train_valid:2": 889980,
+      "train_valid:3": 888493,
+      "train_valid:4": 889261,
+      "test:-1": 1102810
+    },
+    "minimum_student_sequence_length": 200,
+    "maximum_student_sequence_length": 913,
+    "timestamp_order_violations": 0
+  },
+  "limitations": [
+    "The released sequences contain binary correctness, not each student's raw answer.",
+    "Training sequences were truncated by the dataset authors, so the original complete interaction history cannot be reconstructed.",
+    "Question answers and KC routes are isolated in question_reference.csv to avoid leakage into cognitive-skill annotation."
+  ]
+}

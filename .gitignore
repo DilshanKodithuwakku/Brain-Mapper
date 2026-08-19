@@ -26,20 +26,20 @@ htmlcov/
 *.pem
 *.key
 
-# DVC local state and credentials
-.dvc/cache/
-.dvc/tmp/
-.dvc/config.local
-
-# Private and generated data (track large files with DVC)
-/data/raw/**
+# Collaboration dataset: only the curated XES3G5M package is versioned.
+/data/**
+!/data/README.md
+!/data/DATASET.md
+!/data/raw/
+!/data/raw/xes3g5m/
+!/data/raw/xes3g5m/**
+!/data/processed/
+!/data/processed/xes3g5m/
+!/data/processed/xes3g5m/**
 /data/interim/**
-/data/processed/**
 /data/annotations/**
-!/data/raw/README.md
-!/data/interim/README.md
-!/data/processed/README.md
-!/data/annotations/README.md
+/XES3G5M/
+/external/
 
 # Generated artifacts
 /artifacts/models/**

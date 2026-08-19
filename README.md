@@ -34,14 +34,12 @@ Brain-Mapper/
 |   |-- exam_api/                 # Offline LAN examination backend
 |   |-- exam_web/                 # Student and examiner web interface
 |   `-- analytics_dashboard/      # Educator-facing learner analytics
-|-- artifacts/                    # Generated models, metrics, and figures (DVC)
+|-- artifacts/                    # Generated models, metrics, and figures
 |-- configs/                      # Dataset, model, and skill configurations
 |-- data/
-|   |-- raw/                      # Original private/public datasets (DVC)
-|   |-- interim/                  # Cleaned intermediate datasets (DVC)
-|   |-- processed/                # Model-ready datasets (DVC)
-|   |-- annotations/              # LLM and expert cognitive labels (DVC)
-|   `-- sample/                   # Small anonymized examples safe for Git
+|   |-- raw/xes3g5m/              # Minimal reproducible XES3G5M source package
+|   |-- processed/xes3g5m/        # Model-ready collaboration data
+|   `-- DATASET.md                # Provenance, exclusions, license, limitations
 |-- database/                     # Schema and migrations for the exam platform
 |-- deployment/                   # LAN and container deployment files
 |-- docs/                         # Architecture, ethics, dataset, and experiment docs
@@ -55,17 +53,33 @@ Brain-Mapper/
 |   |-- models/                   # Baselines and Cognitive-Aware KT
 |   `-- training/                 # Training, evaluation, and experiment tracking
 |-- tests/                        # Unit, integration, data, and model tests
-|-- dvc.yaml                     # Reproducible ML pipeline definition
 `-- params.yaml                  # Versioned experiment parameters
 ```
 
 Each main directory contains a short README describing its intended contents.
 
-## GitHub and DagsHub workflow
+## Dataset and Git LFS
 
-- **GitHub:** source code, configuration, issues, branches, pull requests, and CI.
-- **DagsHub/DVC:** large datasets, processed datasets, and trained model artifacts.
-- **DagsHub/MLflow:** experiment parameters, metrics, artifacts, and model versions.
+The repository includes the curated XES3G5M collaboration dataset. Large CSV files use Git LFS,
+while question metadata and images are regular Git files. Install Git LFS before cloning:
+
+```bash
+git lfs install
+git clone https://github.com/waruna-2003/Brain-Mapper.git
+cd Brain-Mapper
+git lfs pull
+```
+
+Dataset provenance and limitations are documented in `data/DATASET.md`. In particular, XES3G5M
+contains binary correctness labels rather than each student's written or selected answer.
+
+Rebuild the processed data after installing the project:
+
+```bash
+brain-mapper-prepare-xes3g5m
+```
+
+## GitHub workflow
 
 Never commit student identities, answer scripts containing personal information, API keys, access tokens, or local environment files.
 
@@ -79,7 +93,7 @@ git commit -m "Add short description"
 git push -u origin feature/short-description
 ```
 
-Open a pull request into `main`. If the work changes DVC-tracked data, run `dvc push` in addition to `git push`.
+Open a pull request into `main`. Git LFS objects are uploaded automatically by `git push`.
 
 ## Local setup
 
@@ -105,8 +119,8 @@ python -m pip install -e ".[dev]"
 
 - Replace student identities with generated identifiers before research processing.
 - Keep the re-identification key at the participating school, outside this repository.
-- Commit only small, anonymised sample data to Git.
-- Track approved large datasets with DVC and confirm their licenses permit storage and use.
+- Keep large approved collaboration files under the existing Git LFS paths.
+- Confirm dataset and translation redistribution terms before making the repository public.
 - Use LLMs for question analysis, not automated educational decisions.
 - Record the LLM, prompt version, taxonomy version, and expert-review status for every annotation batch.
 

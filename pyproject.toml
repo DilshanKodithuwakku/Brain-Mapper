@@ -8,7 +8,12 @@ version = "0.1.0"
 description = "Cognitive-aware learning analytics using LLMs and Knowledge Tracing"
 readme = "README.md"
 requires-python = ">=3.11"
-dependencies = []
+dependencies = [
+  "pandas>=2.2",
+]
+
+[project.scripts]
+brain-mapper-prepare-xes3g5m = "brain_mapper.data.prepare_xes3g5m:main"
 
 [project.optional-dependencies]
 dev = [

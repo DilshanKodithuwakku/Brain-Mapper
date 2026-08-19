@@ -1,7 +1,7 @@
 seed: 42
 
 data:
-  dataset: assistments
+  dataset: xes3g5m
 
 training:
   batch_size: 64
