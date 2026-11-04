@@ -1,0 +1,108 @@
+{
+  "expected": 200,
+  "annotated_records": 200,
+  "unique_annotated": 200,
+  "coverage": 1.0,
+  "missing_question_ids": [],
+  "duplicate_question_ids": [],
+  "low_confidence_threshold": 0.6,
+  "low_confidence_question_ids": [],
+  "low_confidence_fraction": 0.0,
+  "confidence_counts": {
+    "0.9": 4,
+    "0.95": 194,
+    "1.0": 2
+  },
+  "dominant_confidence_fraction": 0.97,
+  "usage_totals": {
+    "candidates_token_count": 24105,
+    "prompt_token_count": 98329,
+    "total_token_count": 122434
+  },
+  "skill_distributions": {
+    "attention": {
+      "counts": {
+        "0": 0,
+        "1": 47,
+        "2": 153,
+        "3": 0
+      },
+      "mean": 1.765,
+      "unused_scores": [
+        0,
+        3
+      ],
+      "dominant_score_fraction": 0.765
+    },
+    "working_memory": {
+      "counts": {
+        "0": 0,
+        "1": 29,
+        "2": 148,
+        "3": 23
+      },
+      "mean": 1.97,
+      "unused_scores": [
+        0
+      ],
+      "dominant_score_fraction": 0.74
+    },
+    "logical_reasoning": {
+      "counts": {
+        "0": 0,
+        "1": 8,
+        "2": 85,
+        "3": 107
+      },
+      "mean": 2.495,
+      "unused_scores": [
+        0
+      ],
+      "dominant_score_fraction": 0.535
+    },
+    "language_processing": {
+      "counts": {
+        "0": 0,
+        "1": 134,
+        "2": 65,
+        "3": 1
+      },
+      "mean": 1.335,
+      "unused_scores": [
+        0
+      ],
+      "dominant_score_fraction": 0.67
+    },
+    "critical_thinking": {
+      "counts": {
+        "0": 12,
+        "1": 88,
+        "2": 97,
+        "3": 3
+      },
+      "mean": 1.455,
+      "unused_scores": [],
+      "dominant_score_fraction": 0.485
+    },
+    "metacognition": {
+      "counts": {
+        "0": 90,
+        "1": 108,
+        "2": 2,
+        "3": 0
+      },
+      "mean": 0.56,
+      "unused_scores": [
+        3
+      ],
+      "dominant_score_fraction": 0.54
+    }
+  },
+  "ready_for_human_review": true,
+  "calibration_warnings": [
+    "attention has 76.5% of scores in one category; review rubric calibration.",
+    "97.0% of annotations use the same confidence value; LLM confidence is poorly calibrated and should not be treated as a probability."
+  ],
+  "ready_for_full_annotation": false,
+  "full_annotation_gate": "blocked_pending_human_review"
+}

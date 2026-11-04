@@ -38,6 +38,10 @@ htmlcov/
 !/data/processed/xes3g5m/**
 /data/interim/**
 /data/annotations/**
+!/data/annotations/
+!/data/annotations/xes3g5m/
+!/data/annotations/xes3g5m/**
+/data/annotations/xes3g5m/*_batch_requests.jsonl
 /XES3G5M/
 /external/
 
