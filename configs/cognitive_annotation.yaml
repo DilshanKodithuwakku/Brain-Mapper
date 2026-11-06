@@ -2,23 +2,13 @@ pipeline_version: "1.0"
 taxonomy_version: "1.0"
 prompt_version: "1.0"
 
-provider:
-  name: gemini
-  model: gemini-3.5-flash-lite
-  max_output_tokens: 400
-  max_attempts: 5
-  initial_backoff_seconds: 4
-  request_delay_seconds: 4.2
-
 pilot:
   size: 200
   seed: 42
   input: data/processed/xes3g5m/cognitive_annotation_input_text_only.jsonl
   question_metadata: data/processed/xes3g5m/questions.csv
   sample_output: data/annotations/xes3g5m/pilot_questions.jsonl
-  annotation_output: data/annotations/xes3g5m/pilot_annotations.jsonl
-  failure_output: data/annotations/xes3g5m/pilot_failures.jsonl
-  manifest_output: data/annotations/xes3g5m/pilot_manifest.json
+  annotation_output: data/annotations/xes3g5m/deepseek_annotations.jsonl
   quality_report: data/annotations/xes3g5m/pilot_quality_report.json
   review_template: data/annotations/xes3g5m/pilot_review.csv
   feature_output: data/annotations/xes3g5m/pilot_cognitive_features.csv
@@ -28,19 +18,3 @@ quality:
   maximum_low_confidence_fraction: 0.20
   dominant_score_fraction_threshold: 0.75
   dominant_confidence_fraction_threshold: 0.80
-
-image_questions:
-  metadata: data/processed/xes3g5m/questions.csv
-  annotation_output: data/annotations/xes3g5m/image_annotations.jsonl
-  failure_output: data/annotations/xes3g5m/image_failures.jsonl
-
-full_batch:
-  question_metadata: data/processed/xes3g5m/questions.csv
-  request_file: data/annotations/xes3g5m/full_batch_requests.jsonl
-  question_input: data/annotations/xes3g5m/full_questions.jsonl
-  job_manifest: data/annotations/xes3g5m/full_batch_job.json
-  annotation_output: data/annotations/xes3g5m/full_annotations.jsonl
-  failure_output: data/annotations/xes3g5m/full_failures.jsonl
-  quality_report: data/annotations/xes3g5m/full_quality_report.json
-  review_template: data/annotations/xes3g5m/full_review.csv
-  feature_output: data/annotations/xes3g5m/question_cognitive_features.csv

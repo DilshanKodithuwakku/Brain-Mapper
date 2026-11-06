@@ -18,17 +18,17 @@ The project also features an offline Local Area Network (LAN) examination system
 | Phase | Milestone | Status | Details |
 |---|---|---|---|
 | **Phase 1** | **Dataset & Data Preparation** | **Completed** | Curated XES3G5M dataset integrated. 7,652 questions, 50,000 student interactions, and 2,800+ diagram images processed and verified. |
-| **Phase 2** | **Cognitive Skill Annotation** | **In Progress (Active)** | 6-skill taxonomy formulated; Gemini multimodal engine deployed with strict JSON schemas. **500 / 7,652 questions annotated** with verified visual token processing. |
+| **Phase 2** | **Cognitive Skill Annotation** | **In Progress (Active)** | 6-skill taxonomy formulated; DeepSeek browser automation bridge deployed. **1,350+ / 7,652 questions annotated** with visual diagram support and anti-stale verification. |
 | **Phase 3** | **Knowledge Tracing Modeling** | *Upcoming* | Baseline implementations (DKT, qDKT, QKT) and development of Cognitive-Aware KT (CA-KT). |
 | **Phase 4** | **Learner Profiling & Explainability** | *Upcoming* | Cognitive radar profiles, misconception diagnosis, and educator dashboard. |
 | **Phase 5** | **Offline LAN Exam Platform** | *Upcoming* | Lightweight local API and responsive web interface for secure offline testing. |
 
 ### Active Annotation Pipeline Highlights
-- **Model Engine**: Google Gemini (`gemini-3.5-flash-lite`) via the official `google-genai` SDK.
-- **Multimodal Support**: Diagram-dependent math problems send local PNG images directly as binary parts alongside question prompts.
-- **Quota & Rate-Limit Guards**: Runs with 15 RPM pacing (4.2s inter-request delay) and safe daily caps (480–500 req/day) to prevent API lockouts.
-- **Resilience**: Atomic progress tracking using `os.fsync`. Interrupted runs cleanly pause on `Ctrl+C` and resume without duplicate annotations.
-- **Validation**: 200-question pilot dataset scored, audited (`pilot_quality_report.json`), and verified.
+- **Model Engine**: DeepSeek Web Chat Bridge (supporting DeepSeek-V3 and DeepSeek-R1) via Chrome extension and local bridge server.
+- **Multimodal Support**: Diagram-dependent math problems stream local PNG images directly and attach them to DeepSeek chat via the `DataTransfer` / `File` API.
+- **Quota-Free & High Speed**: Unlimited automated querying without strict API rate limits or daily quota lockouts.
+- **Resilience**: Atomic progress tracking using `os.fsync`. Interrupted runs cleanly pause on `Ctrl+C` or extension toggle, and resume without duplicate annotations.
+- **Verification**: In-band question ID validation, baseline response differential guards, and `<think>` token stripping.
 
 ---
 
@@ -78,7 +78,7 @@ Brain-Mapper/
 |-- data/
 |   |-- raw/xes3g5m/              # Raw XES3G5M dataset and metadata images
 |   |-- processed/xes3g5m/        # Cleaned questions.csv and interactions.csv
-|   |-- annotations/xes3g5m/      # LLM annotation outputs (full_annotations.jsonl, pilot_*)
+|   |-- annotations/xes3g5m/      # LLM annotation outputs (destination for final export)
 |   `-- DATASET.md                # Dataset provenance, exclusions, and licensing
 |-- database/                     # Offline exam database schema and migrations
 |-- deployment/                   # Docker and LAN deployment configurations
@@ -87,16 +87,16 @@ Brain-Mapper/
 |-- pipelines/                    # End-to-end data and training pipeline scripts
 |-- prompts/                      # Version-controlled LLM prompt templates
 |   `-- cognitive_annotation_v1.txt
-|-- scripts/                      # Standalone execution utilities
-|   `-- run_safe_annotation.py    # Resumable, rate-guarded Gemini annotation runner
 |-- src/brain_mapper/             # Core Python package
-|   |-- cognitive_analysis/       # Gemini multimodal annotator, batching, QC, schemas
+|   |-- cognitive_analysis/       # Cognitive taxonomy schemas, sampling, and quality auditing
 |   |-- data/                     # Dataset loading, cleaning, validation, and preparation
 |   |-- explainability/           # Cognitive profiling and interpretation modules
 |   |-- inference/                # Production model inference
 |   |-- models/                   # DKT, qDKT, QKT, and CA-KT architectures
 |   `-- training/                 # Training loops, loss functions, metrics, and logging
 |-- tests/                        # Automated unit and integration test suite
+|-- tools/                        # Annotation tools and extensions
+|   `-- deepseek_extension/       # Isolated browser extension & bridge server for DeepSeek annotation
 |-- pyproject.toml                # Project metadata, dependencies, and entrypoints
 `-- README.md                     # Project overview and documentation
 ```
@@ -108,7 +108,7 @@ Brain-Mapper/
 ### Prerequisites
 - **Python**: 3.11 or higher
 - **Git LFS**: Required for large dataset CSV files
-- **Google Gemini API Key**: [Get an API key from Google AI Studio](https://aistudio.google.com/)
+- **Google Chrome**: For running the DeepSeek annotation extension
 
 ### 1. Clone the Repository
 ```bash
@@ -137,13 +137,6 @@ pip install --upgrade pip
 pip install -e ".[dev]"
 ```
 
-### 3. Environment Variables
-Copy `.env.example` to `.env` and fill in your Gemini API key:
-```ini
-GEMINI_API_KEY=your_gemini_api_key_here
-GEMINI_MODEL=gemini-3.5-flash-lite
-```
-
 ---
 
 ## Workflow & Usage
@@ -155,23 +148,29 @@ brain-mapper-prepare-xes3g5m
 ```
 This generates `questions.csv` (7,652 questions) and `interactions.csv` (50,000 records) in `data/processed/xes3g5m/`.
 
-### 2. Running Cognitive Annotation (Gemini)
-To run the automated, rate-limited, and crash-resilient annotation pipeline:
-```powershell
-python scripts/run_safe_annotation.py
-```
-- **Live Monitoring**: Displays question ID, modality (`[IMG]` or `[TXT]`), latency, individual cognitive scores, confidence, and daily quota progress.
-- **Pause Anytime**: Press `Ctrl+C` to cleanly pause; data is atomically written with `os.fsync`.
-- **Automatic Resume**: Re-running the script picks up exactly where it left off, skipping already completed questions.
+### 2. Running Cognitive Annotation (DeepSeek Extension)
+The project annotates the full dataset using the isolated DeepSeek browser extension:
 
-### 3. Pilot Quality Assurance
-To sample, annotate a small pilot, and run quality checks:
+1. **Start the Local Bridge Server**:
+   ```powershell
+   python tools/deepseek_extension/bridge_server.py
+   ```
+2. **Load the Extension into Chrome**:
+   - Navigate to `chrome://extensions` and enable **Developer mode**.
+   - Click **Load unpacked** and select `tools/deepseek_extension/extension`.
+3. **Run Automation**:
+   - Open [https://chat.deepseek.com](https://chat.deepseek.com) and log in.
+   - Click the **Brain Mapper** extension icon and click **Start Automation**.
+
+### 3. Checking Progress & Quality Audit
+To audit progress or verify cognitive score distributions:
 ```powershell
+# Check live DeepSeek annotation progress
+python tools/deepseek_extension/scripts/check_progress.py
+
+# Sample questions for validation
 brain-mapper-cognitive sample
-brain-mapper-cognitive annotate-pilot --limit 10
-brain-mapper-cognitive quality
 ```
-Generates `pilot_quality_report.json`, `pilot_cognitive_features.csv`, and `pilot_review.csv` for human expert spot-checking.
 
 ---
 

@@ -9,7 +9,6 @@ description = "Cognitive-aware learning analytics using LLMs and Knowledge Traci
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
-  "google-genai>=1.0",
   "pandas>=2.2",
   "pydantic>=2.8",
   "python-dotenv>=1.0",
@@ -19,8 +18,6 @@ dependencies = [
 [project.scripts]
 brain-mapper-prepare-xes3g5m = "brain_mapper.data.prepare_xes3g5m:main"
 brain-mapper-cognitive = "brain_mapper.cognitive_analysis.cli:main"
-brain-mapper-annotate-cognitive = "brain_mapper.cognitive_analysis.pipeline:main"
-brain-mapper-cognitive-batch = "brain_mapper.cognitive_analysis.batch:main"
 
 [project.optional-dependencies]
 dev = [
