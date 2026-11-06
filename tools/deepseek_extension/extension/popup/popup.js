@@ -114,7 +114,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     try {
       return await chrome.tabs.sendMessage(activeDeepSeekTabId, msg);
     } catch (err) {
-      addLog("Error contacting tab: " + err.message);
+      if (err.message && err.message.includes("Receiving end does not exist")) {
+        addLog("Please REFRESH (F5) chat.deepseek.com tab!");
+        if (activityDetailTextEl) {
+          activityDetailTextEl.innerText = "Please refresh (F5) DeepSeek tab!";
+        }
+      } else {
+        addLog("Error contacting tab: " + err.message);
+      }
       return null;
     }
   }
