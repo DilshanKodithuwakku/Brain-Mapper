@@ -311,11 +311,19 @@ class AnnotationManager:
             "updated_at_utc": datetime.now(UTC).isoformat(),
         }
         temp_file = STATE_FILE.with_suffix(".tmp")
-        with temp_file.open("w", encoding="utf-8") as f:
-            json.dump(state, f, indent=2)
-            f.flush()
-            os.fsync(f.fileno())
-        temp_file.replace(STATE_FILE)
+        try:
+            with temp_file.open("w", encoding="utf-8") as f:
+                json.dump(state, f, indent=2)
+                f.flush()
+                os.fsync(f.fileno())
+            temp_file.replace(STATE_FILE)
+        except OSError:
+            # Resilient fallback for Windows file locks (OneDrive sync / antivirus / indexers)
+            try:
+                with STATE_FILE.open("w", encoding="utf-8") as f:
+                    json.dump(state, f, indent=2)
+            except Exception:
+                pass
 
 
 class BridgeHandler(BaseHTTPRequestHandler):
