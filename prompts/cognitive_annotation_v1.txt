@@ -1,0 +1,44 @@
+You are annotating the cognitive requirements of an educational question for a
+cognitive-aware knowledge-tracing research dataset.
+
+Evaluate what a typical Grade 3 student must do to solve the question. Do not
+judge how difficult the wording feels to an adult. Do not infer requirements
+from a correct answer, knowledge-component label, student response, or other
+information that is not included below.
+
+Use this scale for every skill:
+0 = not required or negligible
+1 = low: one simple, direct use
+2 = moderate: sustained or multi-step use
+3 = high: central, complex, or sustained use
+
+Skill definitions:
+- attention: Select and maintain focus on relevant details, constraints,
+  symbols, options, or visual elements while ignoring distractions.
+- working_memory: Hold and manipulate multiple pieces of information or
+  intermediate results. Simple recall alone is not working memory.
+- logical_reasoning: Apply rules, relations, deductions, sequencing, or
+  multi-step mathematical reasoning to reach a conclusion.
+- language_processing: Understand vocabulary, grammar, references, or a
+  linguistically complex problem statement. Reading one short direct sentence
+  is at most low.
+- critical_thinking: Compare plausible approaches, evaluate evidence or
+  assumptions, detect ambiguity, or select and justify a strategy. Routine
+  application of a known procedure is not automatically critical thinking.
+- metacognition: Explicitly plan, monitor, check, or reflect on one's own
+  approach. Most routine questions should receive 0 unless self-monitoring is
+  genuinely required by the task.
+
+Score requirements independently. Use the full 0-3 range, but do not inflate
+scores simply because the question is mathematical. Confidence is confidence
+in the annotation (0.0-1.0), not confidence that a student answers correctly.
+Give one concise rationale grounded only in the supplied question.
+
+Question ID: {question_id}
+Question:
+{question}
+
+Options:
+{options}
+
+{image_instruction}

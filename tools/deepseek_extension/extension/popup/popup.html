@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Brain Mapper Annotator</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <header class="header">
+      <div class="title-row">
+        <h2>Brain Mapper</h2>
+        <span class="badge">DeepSeek Bridge</span>
+      </div>
+      <p class="subtitle">Cognitive Skill Annotation Automation</p>
+    </header>
+
+    <!-- Connection Status -->
+    <section class="status-card">
+      <div class="status-row">
+        <span>Bridge Server:</span>
+        <span id="bridge-status" class="pill pill-offline">Connecting...</span>
+      </div>
+      <div class="status-row">
+        <span>DeepSeek Tab:</span>
+        <span id="tab-status" class="pill pill-offline">Checking...</span>
+      </div>
+    </section>
+
+    <!-- Progress Metrics -->
+    <section class="metrics-card">
+      <div class="metric-header">
+        <span class="label">Total Dataset Progress</span>
+        <span id="progress-percent" class="value-highlight">0.0%</span>
+      </div>
+      <div class="progress-bar-container">
+        <div id="progress-bar-fill" class="progress-bar-fill" style="width: 0%;"></div>
+      </div>
+      <div class="metric-grid">
+        <div class="metric-item">
+          <span class="metric-label">Completed</span>
+          <span id="completed-count" class="metric-value">0</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Remaining</span>
+          <span id="remaining-count" class="metric-value">7,652</span>
+        </div>
+        <div class="metric-item">
+          <span class="metric-label">Failures</span>
+          <span id="failed-count" class="metric-value error-text">0</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Live Activity -->
+    <section class="activity-card">
+      <div class="activity-header">
+        <span>Live Status:</span>
+        <span id="live-step" class="step-pill">IDLE</span>
+      </div>
+      <div class="activity-detail">
+        <span id="activity-detail-text">Waiting to start</span>
+      </div>
+    </section>
+
+    <!-- Controls -->
+    <section class="controls-card">
+      <div class="button-row">
+        <button id="btn-toggle" class="btn btn-primary">Start Automation</button>
+        <button id="btn-skip" class="btn btn-secondary">Skip Question</button>
+      </div>
+
+      <div class="delay-control">
+        <div class="delay-header">
+          <label for="delay-slider">Pacing Delay:</label>
+          <span id="delay-val">6s</span>
+        </div>
+        <input type="range" id="delay-slider" min="3" max="25" step="1" value="6">
+      </div>
+    </section>
+
+    <!-- Mini Log -->
+    <section class="log-card">
+      <div class="log-title">Recent Activity</div>
+      <div id="log-list" class="log-list">
+        <div class="log-item">[Ready] Loaded popup. Connect bridge server.</div>
+      </div>
+    </section>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

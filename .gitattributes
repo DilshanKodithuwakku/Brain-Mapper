@@ -1,0 +1,2 @@
+data/raw/xes3g5m/question_level/*.csv filter=lfs diff=lfs merge=lfs -text
+data/processed/xes3g5m/interactions.csv filter=lfs diff=lfs merge=lfs -text

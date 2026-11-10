@@ -1,0 +1,20 @@
+pipeline_version: "1.0"
+taxonomy_version: "1.0"
+prompt_version: "1.0"
+
+pilot:
+  size: 200
+  seed: 42
+  input: data/processed/xes3g5m/cognitive_annotation_input_text_only.jsonl
+  question_metadata: data/processed/xes3g5m/questions.csv
+  sample_output: data/annotations/xes3g5m/pilot_questions.jsonl
+  annotation_output: data/annotations/xes3g5m/deepseek_annotations.jsonl
+  quality_report: data/annotations/xes3g5m/pilot_quality_report.json
+  review_template: data/annotations/xes3g5m/pilot_review.csv
+  feature_output: data/annotations/xes3g5m/pilot_cognitive_features.csv
+
+quality:
+  low_confidence_threshold: 0.60
+  maximum_low_confidence_fraction: 0.20
+  dominant_score_fraction_threshold: 0.75
+  dominant_confidence_fraction_threshold: 0.80
